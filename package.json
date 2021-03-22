@@ -1,0 +1,35 @@
+{
+  "name": "sass-unit-graph",
+  "version": "1.0.0",
+  "description": "Responsive CSS unit without the use of media queries.",
+  "main": "_unit.scss",
+  "scripts": {
+    "build": "sass ./test/main.scss ./test/main.css",
+    "build:watch": "sass --watch --load-path=./ ./test/main.scss ./test/main.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guillaumefugere/sass-unit-graph.git"
+  },
+  "keywords": [
+    "css",
+    "sass",
+    "scss",
+    "calc",
+    "unit",
+    "path",
+    "graph",
+    "responsive",
+    "fluid"
+  ],
+  "author": "Guillaume Fugère",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guillaumefugere/sass-unit-graph/issues"
+  },
+  "homepage": "https://github.com/guillaumefugere/sass-unit-graph#readme",
+  "devDependencies": {
+    "sass": "^1.32.8"
+  }
+}

@@ -1,0 +1,187 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+
+
+
+// Extend graph line beyond known points.
+// Can be set uppon @use, example:
+// @use "sass-unit-graph/unit" with ($extrapolate: true);
+$extrapolate: false !default;
+
+
+
+// Generate unit graph calc() expression
+// @param {List} $points - list of points
+// @return {String}
+@function graph( $points... ) {
+  // Generated calc expression
+  $calc: null;
+
+  // Line starting point (previous)
+  $p1: null;
+
+  // Line ending point (current)
+  $p2: null;
+
+  // Line angle (previous)
+  $deg: null;
+
+  // Require at least 2 points
+  @if list.length($points) < 2 {
+    @error "SASS Unit Graph function required at least 2 points as arguments.";
+  }
+
+  // Normalize unit and sort points
+  $points: -normalize($points);
+  $points: -sort($points);
+  $points: -extrapolation($points);
+  
+  // Each points...
+  @each $point in $points {
+    $p2: $point;
+    @if ($p1 and $p2) {
+      // Combine with previous calc
+      @if ($calc and $deg) {
+        $fn: "min";
+        @if ($deg < -angle($p1, $p2)) {
+          $fn: "max";
+        }
+        $calc:  "#{$fn}(#{$calc},#{-line($p1, $p2)})";
+        $deg:   -angle($p1, $p2);
+      }
+      // First calc
+      @else {
+        $calc:  -line($p1, $p2);
+        $deg:   -angle($p1, $p2);
+      }
+    } 
+    $p1: $p2;
+  }
+
+  @return #{$calc};
+}
+
+
+
+// Normalize points absolute unit to pixel
+// @access private
+// @param {List} $points
+// @return {List}
+@function -normalize( $points ) {
+  @each $point in $points {
+    // CSS absolute units are converted to pixel.
+    // https://sass-lang.com/documentation/operators/numeric#units
+    $point-value: (
+      0px + list.nth($point, 1),
+      0px + list.nth($point, 2)
+    );
+    $point-index: list.index($points, $point);
+    $points: list.set-nth($points, $point-index, $point-value);
+  }
+  @return $points;
+}
+
+
+
+// Sort points in order of X (viewport width)
+// Based on the code of "Sam Richards" from:
+// https://css-tricks.com/snippets/sass/sorting-function/#sorting-numbers
+// @access private
+// @param {List} $points
+// @return {List}
+@function -sort( $points ) {
+  $lower: ();
+  $equal: ();
+  $greater: ();
+
+  @if list.length($points) > 1 {
+    $seed-index: math.ceil(list.length($points) / 2);
+    $seed-point: list.nth($points, $seed-index);
+    $seed-x: list.nth($seed-point, 1);
+    
+    @each $point in $points {
+      $point-x: list.nth($point, 1);
+      @if ($point-x == $seed-x) {
+        $equal: list.append($equal, $point);
+      } @else if ($point-x < $seed-x) {
+        $lower: list.append($lower, $point);
+      } @else if ($point-x > $seed-x) {
+        $greater: list.append($greater, $point);
+      }
+    }
+
+    @return list.join(list.join(-sort($lower), $equal), -sort($greater));
+  }
+
+  @return $points;
+}
+
+
+
+// Apply (or not) extrapolation of graph line to points list
+// @access private
+// @param {List} $points
+// @return {List}
+@function -extrapolation( $points ) {
+  @if ($extrapolate) {
+    @return $points;
+  }
+
+  $first:     list.nth($points, 1);
+  $last:      list.nth($points, list.length($points));
+
+  $points:  list.join(list.append((), $first), $points);
+  $points:  list.join($points, list.append((), $last));
+  
+  @return $points;
+}
+
+
+
+// Create a line expression from 2 points
+// @access private
+// @param {List} $p1 - Starting point (x, y)
+// @param {List} $p2 - Ending point (x, y)
+// @return {String}
+@function -line( $p1, $p2 ) {
+  $p1x:         list.nth($p1, 1);
+  $p1y:         list.nth($p1, 2);
+
+  $p2x:         list.nth($p2, 1);
+  $p2y:         list.nth($p2, 2);
+
+  @if ($p1x == $p2x or $p1y == $p2y) {
+    @return "#{$p2y}";
+  }
+
+  $rise:        $p2y - $p1y;
+  $run:         $p2x - $p1x;
+  $slope:       $rise / $run;
+  $intercept:   $p1y - $slope * $p1x;
+
+  $calc:        "#{$intercept} + #{$slope * 100vw}";
+  $calc:        "calc(#{$calc})";
+
+  @return $calc;
+}
+
+
+
+// Angle of line between 2 points (from 90deg to -90deg) 
+// @access private
+// @param {List} $p1 - Starting point (x, y)
+// @param {List} $p2 - Ending point (x, y)
+// @return {Number}
+@function -angle( $p1, $p2 ) {
+  $p1x:         list.nth($p1, 1);
+  $p1y:         list.nth($p1, 2);
+
+  $p2x:         list.nth($p2, 1);
+  $p2y:         list.nth($p2, 2);
+
+  $x:           $p2x - $p1x;
+  $y:           $p2y - $p1y;
+  
+  @return       math.atan2($y, $x);
+}

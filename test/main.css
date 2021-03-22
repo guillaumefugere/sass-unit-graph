@@ -1,0 +1,33 @@
+:root {
+  --text-base-margin: 24px;
+  --section-vert-margin: 48px;
+  --section-hori-margin: 24px;
+  --test1: unit.graph((320px, 16px), (568px, 48px));
+  --test2: unit.graph((320px, 16px), (568px, 48px), (768px, 48px), (992px, 48px));
+}
+
+body {
+  color: #212529;
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: var(--section-vert-margin) var(--section-hori-margin);
+}
+
+h1, h2, h3 {
+  margin: calc(var(--text-base-margin) * 2) 0 calc(var(--text-base-margin) / 2);
+}
+
+p {
+  margin: 0 0 calc(var(--text-base-margin) / 2);
+}
+
+.box {
+  background: currentColor;
+  margin: var(--text-base-margin) 0;
+  width: 200px;
+}
+
+.box--1 {
+  height: max(min(min(max(16px,calc(-25.2903225806px + 12.9032258065vw)),48px),calc(157.7142857143px + -14.2857142857vw)),16px);
+}
+
+/*# sourceMappingURL=main.css.map */
