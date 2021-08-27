@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/guillaumefugere/sass-unit-graph#readme",
   "devDependencies": {
-    "sass": "^1.32.8"
+    "sass": "^1.38.1"
   }
 }

@@ -1,33 +1,118 @@
-@use "../unit" with ($extrapolate: false);
+@use "../unit";
 
 :root {
-  --text-base-margin: 24px;
-  --section-vert-margin: 48px;
-  --section-hori-margin: 24px;
-  --test1: unit.graph((320px, 16px), (568px, 48px));
-  --test2: unit.graph((320px, 16px), (568px, 48px), (768px, 48px), (992px, 48px));
+  --text-color: #212529;
+  --code-color: rgb(216, 0, 108);
 }
 
 body {
-  color: #212529;
-  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
-  margin: var(--section-vert-margin) var(--section-hori-margin);
+  color: var(--text-color);
+  font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+  margin: 0 24px 48px ;
 }
 
-h1, h2, h3 {
-  margin: calc(var(--text-base-margin) * 2) 0 calc(var(--text-base-margin) / 2);
+h1, h2 {
+  font-weight: 400;
+  margin: 48px 0 24px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-p {
-  margin: 0 0 calc(var(--text-base-margin) / 2);
+.code {
+  background: #f5f2f0;
+  text-shadow: 0 1px #fff;
+  font-family: inherit;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  margin: 0 0 24px;
+  padding: 1em;
+  overflow: auto;
+  white-space: pre-line;
 }
 
-.box {
-  background: currentColor;
-  margin: var(--text-base-margin) 0;
-  width: 200px;
+.vw {
+  --current-vw: 100vw;
+
+  align-items: center;
+  display: flex;
+  color: var(--code-color);
+  position: sticky;
+  top: 0;
+
+  &::before {
+    display: inline-block;
+    color: var(--text-color);
+    content: "Current viewport width: ";
+    max-width: calc(100% - 7ch);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 1ch;
+  }
 }
 
-.box--1 {
-  height: unit.graph((320px, 16px), (568px, 48px), (768px, 48px), (992px, 16px));
+pre, code {
+  color: #000;
+  background: 0 0;
+  text-shadow: 0 1px #fff;
+  font-family: inherit;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f5f2f0;
+  margin: 0 0 24px;
+  padding: 1em;
+  overflow: auto;
+  white-space: pre-line;
+}
+
+[data-unit] {
+  color: rgb(216, 0, 108);
+}
+
+
+
+.test {
+ --current-vw: 100vw;
+}
+
+.test--1 {
+  $points: ((320px, 0px), (1200px, 200px));
+  --unit-graph: #{unit.graph( $points... )};
+
+  &::before {
+    content: "#{$points}";
+  }
+}
+
+.test--2 {
+  --unit-graph: #{unit.graph((0px, 0px), (320px, 0px), (1200px, 200px), (1920px, 200px))};
 }

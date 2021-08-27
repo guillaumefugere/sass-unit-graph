@@ -4,13 +4,6 @@
 
 
 
-// Extend graph line beyond known points.
-// Can be set uppon @use, example:
-// @use "sass-unit-graph/unit" with ($extrapolate: true);
-$extrapolate: false !default;
-
-
-
 // Generate unit graph calc() expression
 // @param {List} $points - list of points
 // @return {String}
@@ -35,7 +28,6 @@ $extrapolate: false !default;
   // Normalize unit and sort points
   $points: -normalize($points);
   $points: -sort($points);
-  $points: -extrapolation($points);
   
   // Each points...
   @each $point in $points {
@@ -96,7 +88,7 @@ $extrapolate: false !default;
   $greater: ();
 
   @if list.length($points) > 1 {
-    $seed-index: math.ceil(list.length($points) / 2);
+    $seed-index: math.ceil(math.div(list.length($points), 2));
     $seed-point: list.nth($points, $seed-index);
     $seed-x: list.nth($seed-point, 1);
     
@@ -114,26 +106,6 @@ $extrapolate: false !default;
     @return list.join(list.join(-sort($lower), $equal), -sort($greater));
   }
 
-  @return $points;
-}
-
-
-
-// Apply (or not) extrapolation of graph line to points list
-// @access private
-// @param {List} $points
-// @return {List}
-@function -extrapolation( $points ) {
-  @if ($extrapolate) {
-    @return $points;
-  }
-
-  $first:     list.nth($points, 1);
-  $last:      list.nth($points, list.length($points));
-
-  $points:  list.join(list.append((), $first), $points);
-  $points:  list.join($points, list.append((), $last));
-  
   @return $points;
 }
 
@@ -157,7 +129,7 @@ $extrapolate: false !default;
 
   $rise:        $p2y - $p1y;
   $run:         $p2x - $p1x;
-  $slope:       $rise / $run;
+  $slope:       math.div($rise, $run);
   $intercept:   $p1y - $slope * $p1x;
 
   $calc:        "#{$intercept} + #{$slope * 100vw}";
