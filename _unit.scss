@@ -26,8 +26,8 @@
   }
 
   // Normalize unit and sort points
-  $points: -normalize($points);
-  $points: -sort($points);
+  $points: _normalize($points);
+  $points: _sort($points);
   
   // Each points...
   @each $point in $points {
@@ -36,16 +36,16 @@
       // Combine with previous calc
       @if ($calc and $deg) {
         $fn: "min";
-        @if ($deg < -angle($p1, $p2)) {
+        @if ($deg < _angle($p1, $p2)) {
           $fn: "max";
         }
-        $calc:  "#{$fn}(#{$calc},#{-line($p1, $p2)})";
-        $deg:   -angle($p1, $p2);
+        $calc:  "#{$fn}(#{$calc},#{_line($p1, $p2)})";
+        $deg:   _angle($p1, $p2);
       }
       // First calc
       @else {
-        $calc:  -line($p1, $p2);
-        $deg:   -angle($p1, $p2);
+        $calc:  _line($p1, $p2);
+        $deg:   _angle($p1, $p2);
       }
     } 
     $p1: $p2;
@@ -60,7 +60,7 @@
 // @access private
 // @param {List} $points
 // @return {List}
-@function -normalize( $points ) {
+@function _normalize( $points ) {
   @each $point in $points {
     // CSS absolute units are converted to pixel.
     // https://sass-lang.com/documentation/operators/numeric#units
@@ -82,7 +82,7 @@
 // @access private
 // @param {List} $points
 // @return {List}
-@function -sort( $points ) {
+@function _sort( $points ) {
   $lower: ();
   $equal: ();
   $greater: ();
@@ -103,7 +103,7 @@
       }
     }
 
-    @return list.join(list.join(-sort($lower), $equal), -sort($greater));
+    @return list.join(list.join(_sort($lower), $equal), _sort($greater));
   }
 
   @return $points;
@@ -116,7 +116,7 @@
 // @param {List} $p1 - Starting point (x, y)
 // @param {List} $p2 - Ending point (x, y)
 // @return {String}
-@function -line( $p1, $p2 ) {
+@function _line( $p1, $p2 ) {
   $p1x:         list.nth($p1, 1);
   $p1y:         list.nth($p1, 2);
 
@@ -145,7 +145,7 @@
 // @param {List} $p1 - Starting point (x, y)
 // @param {List} $p2 - Ending point (x, y)
 // @return {Number}
-@function -angle( $p1, $p2 ) {
+@function _angle( $p1, $p2 ) {
   $p1x:         list.nth($p1, 1);
   $p1y:         list.nth($p1, 2);
 

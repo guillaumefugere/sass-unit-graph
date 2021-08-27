@@ -21,21 +21,20 @@ class ViewportWidth {
   }
 }
 
-Array.from(document.querySelectorAll('.vw')).forEach(x => new ViewportWidth(x));
+new ViewportWidth(document.querySelector('.vw'));
 
 class UnitGraph {
   constructor(node) {
     this.node = node;
-    this.unitGraph = this.node.querySelector('[data-unit="graph"]');
-    this.unitValue = this.node.querySelector('[data-unit="value"]');
     window.addEventListener("resize", this.update.bind(this));
     this.update();
   }
 
   update() {
     const style = window.getComputedStyle(this.node);
-    this.unitGraph.innerHTML = `${style.getPropertyValue("--unit-graph")}`;
-    this.unitValue.innerHTML = `${convertToPx(style.getPropertyValue("--unit-graph"))}px`;
+    const value = style.getPropertyValue("--unit-graph");
+    const pixel = `${convertToPx(value)}px`;
+    this.node.innerHTML = `${value}<br>${pixel}`;
   }
 }
 

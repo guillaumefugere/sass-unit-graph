@@ -18,7 +18,11 @@ h1, h2 {
   text-overflow: ellipsis;
 }
 
-.code {
+.warn {
+  color: #fc3741;
+}
+
+.vw, .test {
   background: #f5f2f0;
   text-shadow: 0 1px #fff;
   font-family: inherit;
@@ -36,10 +40,10 @@ h1, h2 {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  margin: 0 0 24px;
+  margin: 24px 0;
   padding: 1em;
   overflow: auto;
-  white-space: pre-line;
+  white-space: nowrap;
 }
 
 .vw {
@@ -47,6 +51,7 @@ h1, h2 {
   align-items: center;
   display: flex;
   color: var(--code-color);
+  margin-top: 0;
   position: sticky;
   top: 0;
 }
@@ -61,52 +66,33 @@ h1, h2 {
   margin-right: 1ch;
 }
 
-pre, code {
-  color: #000;
-  background: 0 0;
-  text-shadow: 0 1px #fff;
-  font-family: inherit;
-  font-size: 1em;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-pre {
-  background: #f5f2f0;
-  margin: 0 0 24px;
-  padding: 1em;
-  overflow: auto;
-  white-space: pre-line;
-}
-
-[data-unit] {
-  color: #d8006c;
-}
-
 .test {
-  --current-vw: 100vw;
+  color: var(--code-color);
+}
+.test::before {
+  display: block;
+  color: var(--text-color);
 }
 
-.test--1 {
-  --unit-graph: calc(-72.7272727273px + 22.7272727273vw);
+.test--ascending {
+  --unit-graph: calc(-155.5555555556px + 46.2962962963vw);
 }
-.test--1::before {
-  content: "320px, 0px, 1200px, 200px";
+.test--ascending::before {
+  content: "unit.graph((768px, 200px), (1200px, 400px))";
 }
 
-.test--2 {
-  --unit-graph: min(max(0px,calc(-72.7272727273px + 22.7272727273vw)),200px);
+.test--decending {
+  --unit-graph: calc(755.5555555556px + -46.2962962963vw);
+}
+.test--decending::before {
+  content: "unit.graph((768px, 400px), (1200px, 200px))";
+}
+
+.test--steps {
+  --unit-graph: min(max(200px,400px),400px);
+}
+.test--steps::before {
+  content: "unit.graph((568px, 200px), (768px, 200px), (768px, 400px), (1200px, 400px))";
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -9,19 +9,24 @@
 </head>
 
 <body>
-  <div class="code vw"></div>
+  <div class="vw"></div>
 
   <h1>SASS Unit Graph</h1>
+  <p class="warn">
+    <strong>Known issue.</strong> CSS expression conversion to pixel 
+    trough JavaScript won't display unit value belown 0px. 
+    This only affect the JS conversion to pixel for the test.
+    Negative CSS expression will work in CSS.
+  </p>
 
-  <h2>Linear <strong>with</strong> extrapolation</h2>
-  <div class="test test--1">
-    <pre>
-      <code data-unit="graph"></code>
-    </pre>
-    <pre>
-      <code>unit-graph: <span data-unit="value"></span></code>
-    </pre>
-  </div>
+  <h2>Ascending</h2>
+  <div class="test test--ascending"></div>
+
+  <h2>Decending</h2>
+  <div class="test test--decending"></div>
+
+  <h2>Steps</h2>
+  <div class="test test--steps"></div>
 
   <script src="main.js"></script>
 

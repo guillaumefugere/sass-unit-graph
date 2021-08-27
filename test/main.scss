@@ -1,4 +1,25 @@
+@use "sass:list";
 @use "../unit";
+
+@function _unitGraphToString( $points... ) {
+  $strPoints: "";
+
+  @each $p in $points {
+    @if ($strPoints != "") {
+      $strPoints: $strPoints + ", "
+    }
+    $strPoints: $strPoints + "(#{list.nth($p, 1)}, #{list.nth($p, 2)})"
+  }
+
+  @return "unit.graph(#{$strPoints})";
+}
+
+@mixin _unitGraphTest( $points... ) {
+  --unit-graph: #{unit.graph( $points... )};
+  &::before {
+    content: "#{_unitGraphToString( $points... )}";
+  }
+}
 
 :root {
   --text-color: #212529;
@@ -20,7 +41,11 @@ h1, h2 {
   text-overflow: ellipsis;
 }
 
-.code {
+.warn {
+  color: rgb(252, 55, 65);
+}
+
+.vw, .test {
   background: #f5f2f0;
   text-shadow: 0 1px #fff;
   font-family: inherit;
@@ -38,10 +63,10 @@ h1, h2 {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  margin: 0 0 24px;
+  margin: 24px 0;
   padding: 1em;
   overflow: auto;
-  white-space: pre-line;
+  white-space: nowrap;
 }
 
 .vw {
@@ -50,6 +75,7 @@ h1, h2 {
   align-items: center;
   display: flex;
   color: var(--code-color);
+  margin-top: 0;
   position: sticky;
   top: 0;
 
@@ -65,54 +91,23 @@ h1, h2 {
   }
 }
 
-pre, code {
-  color: #000;
-  background: 0 0;
-  text-shadow: 0 1px #fff;
-  font-family: inherit;
-  font-size: 1em;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-pre {
-  background: #f5f2f0;
-  margin: 0 0 24px;
-  padding: 1em;
-  overflow: auto;
-  white-space: pre-line;
-}
-
-[data-unit] {
-  color: rgb(216, 0, 108);
-}
-
-
-
 .test {
- --current-vw: 100vw;
-}
-
-.test--1 {
-  $points: ((320px, 0px), (1200px, 200px));
-  --unit-graph: #{unit.graph( $points... )};
-
+  color: var(--code-color);
+  
   &::before {
-    content: "#{$points}";
+    display: block;
+    color: var(--text-color);
   }
 }
 
-.test--2 {
-  --unit-graph: #{unit.graph((0px, 0px), (320px, 0px), (1200px, 200px), (1920px, 200px))};
+.test--ascending {
+  @include _unitGraphTest((768px, 200px), (1200px, 400px));
+}
+
+.test--decending {
+  @include _unitGraphTest((768px, 400px), (1200px, 200px));
+}
+
+.test--steps {
+  @include _unitGraphTest((568px, 200px), (768px, 200px), (768px, 400px), (1200px, 400px));
 }
