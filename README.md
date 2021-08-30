@@ -74,7 +74,7 @@ font-size: calc(var(--custom-prop) + 10%);
 font-size: calc(var(--custom-prop) - 10%);
 ```
 
-It is also possible to add or subtract multiple linear expressions:
+It is also possible to add or subtract multiple graph expressions:
 
 ```scss
 @use "sass-unit-graph/unit" as unit;
@@ -98,7 +98,7 @@ body {
 
 ### Extrapolation
 
-Extrapolation will append below the first points X value, 
+Extrapolation will appen below the first points X value, 
 and above the last point X value.
 
 ```scss
@@ -130,7 +130,7 @@ unit.graph(
 
 ### Steps
 
-Creation of steps is possible by creating very sharp ascending line.
+Creation of steps is possible by creating sharp ascending line.
 
 ```scss
 unit.graph(
