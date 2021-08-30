@@ -15,8 +15,8 @@
   <p class="warn">
     <strong>Known issue.</strong> CSS expression conversion to pixel 
     trough JavaScript won't display unit value belown 0px. 
-    This only affect the JS conversion to pixel for the test.
-    Negative CSS expression will work in CSS.
+    This only affect the JavaScript conversion to pixel for this test.
+    <strong>CSS expression with negative result work in CSS.</strong>
   </p>
 
   <h2>Ascending</h2>
@@ -27,6 +27,16 @@
 
   <h2>Steps</h2>
   <div class="test test--steps"></div>
+
+  <h2>No extrapolation</h2>
+  <div class="test test--no-extrapolation"></div>
+
+  <h2>No intercept of 0</h2>
+  <div class="test test--no-intercept"></div>
+
+  <h2>Line continuity (prevent repeat)</h2>
+  <div class="test test--line-continuity-1"></div>
+  <div class="test test--line-continuity-2"></div>
 
   <script src="main.js"></script>
 

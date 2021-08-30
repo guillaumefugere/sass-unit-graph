@@ -109,5 +109,21 @@ h1, h2 {
 }
 
 .test--steps {
-  @include _unitGraphTest((568px, 200px), (768px, 200px), (768px, 300px), (768px, 400px), (1200px, 400px));
+  @include _unitGraphTest((568px, 200px), (767.99px, 200px), (768px, 400px), (1200px, 400px));
+}
+
+.test--no-extrapolation {
+  @include _unitGraphTest((320px, 200px), (768px, 200px), (992px, 400px), (1200px, 400px));
+}
+
+.test--no-intercept {
+  @include _unitGraphTest((200px, 50px), (400px, 100px));
+}
+
+.test--line-continuity-1 {
+  @include _unitGraphTest((200px, 100px), (300px, 200px), (400px, 300px));
+}
+
+.test--line-continuity-2 {
+  @include _unitGraphTest((200px, 200px), (300px, 200px), (400px, 200px));
 }

@@ -38,7 +38,9 @@
         @if ($deg < _angle($p1, $p2)) {
           $fn: "max";
         }
-        $calc:  "#{$fn}(#{$calc},#{_line($p1, $p2)})";
+        @if ($deg != _angle($p1, $p2)) {
+          $calc:  "#{$fn}(#{$calc},#{_line($p1, $p2)})";
+        }
         $deg:   _angle($p1, $p2);
       }
       // First calc
@@ -87,8 +89,16 @@
   $p2x:         list.nth($p2, 1);
   $p2y:         list.nth($p2, 2);
 
-  @if ($p1x == $p2x or $p1y == $p2y) {
+  @if ($p1y == $p2y) {
     @return "#{$p2y}";
+  }
+
+  @if ($p1x == $p2x) {
+    @error "SASS Unit Graph can't calculate line between two points with identical X value (#{$p1x}).";
+  }
+
+  @if ($p1x >= $p2x) {
+    @error "SASS Unit Graph can't calculate line between two points if the second point X value is lower than the first point (#{$p1x} >= #{$p2x}).";
   }
 
   $rise:        $p2y - $p1y;
@@ -96,10 +106,14 @@
   $slope:       math.div($rise, $run);
   $intercept:   $p1y - $slope * $p1x;
 
+  @if ($intercept == 0px) {
+    $calc:      "#{$slope * 100vw}";
+    @return     $calc;
+  }
+
   $calc:        "#{$intercept} + #{$slope * 100vw}";
   $calc:        "calc(#{$calc})";
-
-  @return $calc;
+  @return       $calc;
 }
 
 

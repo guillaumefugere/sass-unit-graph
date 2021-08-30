@@ -89,10 +89,38 @@ h1, h2 {
 }
 
 .test--steps {
-  --unit-graph: min(min(max(200px,calc(-7679700.000006985px + 1000000.0000009094vw)),calc(-7679600.000006985px + 1000000.0000009094vw)),400px);
+  --unit-graph: min(max(200px,calc(-15359600.00001397px + 2000000.0000018189vw)),400px);
 }
 .test--steps::before {
-  content: "unit.graph((568px, 200px), (768px, 200px), (768px, 300px), (768px, 400px), (1200px, 400px))";
+  content: "unit.graph((568px, 200px), (767.99px, 200px), (768px, 400px), (1200px, 400px))";
+}
+
+.test--no-extrapolation {
+  --unit-graph: min(max(200px,calc(-485.7142857143px + 89.2857142857vw)),400px);
+}
+.test--no-extrapolation::before {
+  content: "unit.graph((320px, 200px), (768px, 200px), (992px, 400px), (1200px, 400px))";
+}
+
+.test--no-intercept {
+  --unit-graph: 25vw;
+}
+.test--no-intercept::before {
+  content: "unit.graph((200px, 50px), (400px, 100px))";
+}
+
+.test--line-continuity-1 {
+  --unit-graph: calc(-100px + 100vw);
+}
+.test--line-continuity-1::before {
+  content: "unit.graph((200px, 100px), (300px, 200px), (400px, 300px))";
+}
+
+.test--line-continuity-2 {
+  --unit-graph: 200px;
+}
+.test--line-continuity-2::before {
+  content: "unit.graph((200px, 200px), (300px, 200px), (400px, 200px))";
 }
 
 /*# sourceMappingURL=main.css.map */
