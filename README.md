@@ -47,6 +47,12 @@ and [vw](https://caniuse.com/#search=vw) are supported, which includes:
 * Safari (11.1+)
 * Android Browser (92+)
 
+## Test
+
+All tests are done in browser from a 
+[test page](https://htmlpreview.github.io/?https://github.com/guillaumefugere/sass-unit-graph/blob/main/test/index.html) 
+within the `test` folder.
+
 ## Usage
 
 The `unit.graph()` Sass function returns an expression based 
@@ -92,7 +98,7 @@ It is also possible to add or subtract multiple graph expressions:
 }
 
 body {
-  font-size: calc(#{--custom-prop-1} + #{--custom-prop-2});
+  font-size: calc(var(--custom-prop-1) + var(--custom-prop-2));
 }
 ```
 
