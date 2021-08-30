@@ -25,9 +25,8 @@
     @error "SASS Unit Graph function required at least 2 points as arguments.";
   }
 
-  // Normalize unit and sort points
+  // Normalize unit
   $points: _normalize($points);
-  $points: _sort($points);
   
   // Each points...
   @each $point in $points {
@@ -71,41 +70,6 @@
     $point-index: list.index($points, $point);
     $points: list.set-nth($points, $point-index, $point-value);
   }
-  @return $points;
-}
-
-
-
-// Sort points in order of X (viewport width)
-// Based on the code of "Sam Richards" from:
-// https://css-tricks.com/snippets/sass/sorting-function/#sorting-numbers
-// @access private
-// @param {List} $points
-// @return {List}
-@function _sort( $points ) {
-  $lower: ();
-  $equal: ();
-  $greater: ();
-
-  @if list.length($points) > 1 {
-    $seed-index: math.ceil(math.div(list.length($points), 2));
-    $seed-point: list.nth($points, $seed-index);
-    $seed-x: list.nth($seed-point, 1);
-    
-    @each $point in $points {
-      $point-x: list.nth($point, 1);
-      @if ($point-x == $seed-x) {
-        $equal: list.append($equal, $point);
-      } @else if ($point-x < $seed-x) {
-        $lower: list.append($lower, $point);
-      } @else if ($point-x > $seed-x) {
-        $greater: list.append($greater, $point);
-      }
-    }
-
-    @return list.join(list.join(_sort($lower), $equal), _sort($greater));
-  }
-
   @return $points;
 }
 
