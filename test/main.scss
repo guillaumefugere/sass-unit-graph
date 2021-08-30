@@ -109,5 +109,5 @@ h1, h2 {
 }
 
 .test--steps {
-  @include _unitGraphTest((568px, 200px), (768px, 200px), (768px, 400px), (1200px, 400px));
+  @include _unitGraphTest((568px, 200px), (768px, 200px), (768px, 300px), (768px, 400px), (1200px, 400px));
 }

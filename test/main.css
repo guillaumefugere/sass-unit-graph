@@ -89,10 +89,10 @@ h1, h2 {
 }
 
 .test--steps {
-  --unit-graph: min(max(200px,400px),400px);
+  --unit-graph: min(min(max(200px,calc(-7679700.000006985px + 1000000.0000009094vw)),calc(-7679600.000006985px + 1000000.0000009094vw)),400px);
 }
 .test--steps::before {
-  content: "unit.graph((568px, 200px), (768px, 200px), (768px, 400px), (1200px, 400px))";
+  content: "unit.graph((568px, 200px), (768px, 200px), (768px, 300px), (768px, 400px), (1200px, 400px))";
 }
 
 /*# sourceMappingURL=main.css.map */
