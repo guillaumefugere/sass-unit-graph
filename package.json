@@ -17,9 +17,12 @@
     "sass",
     "scss",
     "calc",
+    "expression",
     "unit",
     "path",
     "graph",
+    "line",
+    "linear",
     "responsive",
     "fluid"
   ],
