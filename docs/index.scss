@@ -1,0 +1,105 @@
+@use "sass:list";
+@use "../unit-graph" as *;
+
+:root {
+  --primary: #67729d;
+  --secondary: #fed9ed;
+}
+
+body {
+  color: var(--primary);
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  margin: 0;
+}
+
+h1,
+h2,
+p {
+  margin: 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.max-width {
+  margin: 0 auto;
+  max-width: 1600px;
+}
+
+.header {
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 32px 16px;
+}
+
+.example {
+  margin: 32px 16px;
+}
+
+.graph {
+  --vw: 100vw; // Used by JS
+  --width: 1600px;
+  --height: 200px;
+  --x: 0;
+  --y: 0;
+
+  background: #fff0f8;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  max-width: var(--width);
+  overflow: hidden;
+  position: relative;
+
+  &::before,
+  &::after {
+    align-items: flex-end;
+    background: var(--primary);
+    bottom: 0;
+    content: "";
+    display: flex;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    text-indent: 8px;
+    white-space: nowrap;
+    width: 1px;
+    z-index: 1;
+  }
+
+  &::before {
+    content: attr(data-label-y);
+    transform: translateY(calc(var(--y) * -1));
+    width: 100%;
+  }
+
+  &::after {
+    content: attr(data-label-x);
+    height: 100%;
+    transform: translateX(var(--x));
+  }
+
+  svg {
+    display: block;
+    fill: var(--secondary);
+    height: var(--height);
+    opacity: 0.5;
+    width: 100%;
+  }
+
+  &--ascending {
+    --y: #{unit-graph((0px, 0px), (1600px, 200px))};
+  }
+
+  &--decending {
+    --y: #{unit-graph((0px, 200px), (1600px, 0px))};
+  }
+
+  &--range {
+    --y: #{unit-graph(
+        (0px, 40px),
+        (400px, 40px),
+        (1200px, 160px),
+        (1600px, 160px)
+      )};
+  }
+}

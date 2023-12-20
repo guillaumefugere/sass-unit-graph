@@ -7,7 +7,7 @@
 // Generate unit graph calc() expression
 // @param {List} $points - list of points
 // @return {String}
-@function graph( $points... ) {
+@function unit-graph( $points... ) {
   // Generated calc expression
   $calc: null;
 

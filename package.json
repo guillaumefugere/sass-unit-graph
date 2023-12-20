@@ -1,12 +1,16 @@
 {
   "name": "sass-unit-graph",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Responsive CSS unit without the use of media queries.",
-  "main": "_unit.scss",
   "scripts": {
-    "build": "sass ./test/main.scss ./test/main.css",
-    "build:watch": "sass --watch --load-path=./ ./test/main.scss ./test/main.css",
+    "build": "sass ./docs/index.scss ./docs/index.css",
+    "watch": "sass --watch --load-path=./ ./docs/index.scss ./docs/index.css",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    ".": {
+      "sass": "./_unit-graph.scss"
+    }
   },
   "repository": {
     "type": "git",

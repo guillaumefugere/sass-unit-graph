@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SASS Unit Graph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="max-width">
+        <h1>SASS Unit Graph</h1>
+        <p>Resize your browser window to reflect change on graph.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <div class="max-width">
+        <h2>Range</h2>
+        <p>
+          unit-graph((0px, 40px), (768px, 40px), (992px, 200px), (1600px,
+          200px))
+        </p>
+        <div class="graph graph--range">
+          <svg
+            viewBox="0 0 1600 200"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M 0 200
+                 L 0 160
+                 L 400 160
+                 L 1200 40
+                 L 1600 40
+                 L 1600 200"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <div class="max-width">
+        <h2>Ascending (with extrapolation)</h2>
+        <p>unit-graph((0px, 0px), (1600px, 200px))</p>
+        <div class="graph graph--ascending">
+          <svg
+            viewBox="0 0 1600 200"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M 0 200
+                 L 1600 0
+                 L 1600 200"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <div class="max-width">
+        <h2>Decending (with extrapolation)</h2>
+        <p>unit-graph((0px, 200px), (1600px, 0px))</p>
+        <div class="graph graph--decending">
+          <svg
+            viewBox="0 0 1600 200"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M 0 0
+                 L 1600 200
+                 L 0 200"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
