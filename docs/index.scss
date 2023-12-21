@@ -43,7 +43,24 @@ p {
   --x: 0;
   --y: 0;
 
-  background: #fff0f8;
+  --limited-range: #{unit-graph(
+      (0px, 40px),
+      (400px, 40px),
+      (1200px, 160px),
+      (1600px, 160px)
+    )};
+  --extrapolation: #{unit-graph((600px, 125px), (1000px, 75px))};
+  --complex-pattern: #{unit-graph(
+      (0px, 160px),
+      (399.99px, 160px),
+      (400px, 40px),
+      (800px, 160px),
+      (1199.99px, 160px),
+      (1200px, 40px),
+      (1600px, 40px)
+    )};
+
+  background: #fffafd;
   border: 1px solid var(--primary);
   border-radius: 8px;
   max-width: var(--width);
@@ -83,23 +100,21 @@ p {
     fill: var(--secondary);
     height: var(--height);
     opacity: 0.5;
+    stroke: var(--secondary);
+    stroke-dasharray: 4;
+    stroke-width: 0;
     width: 100%;
   }
 
-  &--ascending {
-    --y: #{unit-graph((0px, 0px), (1600px, 200px))};
+  &--limited-range {
+    --y: var(--limited-range);
   }
 
-  &--decending {
-    --y: #{unit-graph((0px, 200px), (1600px, 0px))};
+  &--extrapolation {
+    --y: var(--extrapolation);
   }
 
-  &--range {
-    --y: #{unit-graph(
-        (0px, 40px),
-        (400px, 40px),
-        (1200px, 160px),
-        (1600px, 160px)
-      )};
+  &--complex-pattern {
+    --y: var(--complex-pattern);
   }
 }

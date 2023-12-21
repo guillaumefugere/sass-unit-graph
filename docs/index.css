@@ -39,7 +39,10 @@ p {
   --height: 200px;
   --x: 0;
   --y: 0;
-  background: #fff0f8;
+  --limited-range: min(max(40px,calc(-20px + 15vw)),160px);
+  --extrapolation: calc(200px + -12.5vw);
+  --complex-pattern: max(min(min(max(min(160px,calc(4800040.000004366px + -1200000.0000010915vw)),calc(-80px + 30vw)),160px),calc(14400040.000013096px + -1200000.0000010915vw)),40px);
+  background: #fffafd;
   border: 1px solid var(--primary);
   border-radius: 8px;
   max-width: var(--width);
@@ -75,16 +78,19 @@ p {
   fill: var(--secondary);
   height: var(--height);
   opacity: 0.5;
+  stroke: var(--secondary);
+  stroke-dasharray: 4;
+  stroke-width: 0;
   width: 100%;
 }
-.graph--ascending {
-  --y: 12.5vw;
+.graph--limited-range {
+  --y: var(--limited-range);
 }
-.graph--decending {
-  --y: calc(200px + -12.5vw);
+.graph--extrapolation {
+  --y: var(--extrapolation);
 }
-.graph--range {
-  --y: min(max(40px,calc(-20px + 15vw)),160px);
+.graph--complex-pattern {
+  --y: var(--complex-pattern);
 }
 
 /*# sourceMappingURL=index.css.map */
