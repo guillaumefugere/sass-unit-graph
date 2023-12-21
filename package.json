@@ -7,11 +7,6 @@
     "watch": "sass --watch --load-path=./ ./docs/index.scss ./docs/index.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "exports": {
-    ".": {
-      "sass": "./_unit-graph.scss"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guillaumefugere/sass-unit-graph.git"
