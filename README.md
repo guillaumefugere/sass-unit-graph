@@ -4,10 +4,10 @@
 > :warning: Usage of [Dart Sass](https://github.com/sass/dart-sass) is mandatory.
 
 ```scss
-@use "sass-unit-graph/unit" as unit;
+@use "sass-unit-graph" as *;
 
 :root {
-  --font-size-base: #{unit.graph(
+  --font-size-base: #{unit-graph(
     (320px,16px), 
     (1920px,24px)
   )};
@@ -21,18 +21,23 @@ body {
 }
 ```
 
+## Examples
+
+Examples available on the
+[GitHub Page](https://guillaumefugere.github.io/sass-unit-graph).
+
 ## Quick install
 
 ### NPM
 
 ```bash
-npm i sass sass-unit-graph
+npm i -D sass sass-unit-graph
 ```
 
 ### Using within Sass
 
 ```scss
-@use "sass-unit-graph/unit" as unit;
+@use "sass-unit-graph" as *;
 ```
 
 ## Browser support
@@ -47,15 +52,9 @@ and [vw](https://caniuse.com/#search=vw) are supported, which includes:
 * Safari (11.1+)
 * Android Browser (92+)
 
-## Test
-
-All tests are done in browser from a 
-[test page](https://htmlpreview.github.io/?https://github.com/guillaumefugere/sass-unit-graph/blob/main/test/index.html) 
-within the `test` folder.
-
 ## Usage
 
-The `unit.graph()` Sass function returns an expression based 
+The `unit-graph()` Sass function returns an expression based 
 on at least two points.
 
 It is possible to use any CSS calc operations.
@@ -64,7 +63,7 @@ It is possible to use any CSS calc operations.
 @use "sass-unit-graph/unit" as unit;
 
 :root {
-  --custom-prop: #{unit.graph(
+  --custom-prop: #{unit-graph(
     (320px,16px), 
     (1920px,24px)
   )};
@@ -86,12 +85,12 @@ It is also possible to add or subtract multiple graph expressions:
 @use "sass-unit-graph/unit" as unit;
 
 :root {
-  --custom-prop-1: #{unit.graph(
+  --custom-prop-1: #{unit-graph(
     (320px,16px),
     (1920px,24px)
   )};
 
-  --custom-prop-2: #{unit.graph(
+  --custom-prop-2: #{unit-graph(
     (320px,8px),
     (1920px,12px)
   )};
@@ -108,7 +107,7 @@ Extrapolation will appen below the first points X value,
 and above the last point X value.
 
 ```scss
-unit.graph(
+unit-graph(
   // Extrapolation
   (320px,16px), 
   // Value is linear between two points
@@ -121,7 +120,7 @@ It is possible to draw an horizontal line to get
 a constant Y value.
 
 ```scss
-unit.graph(
+unit-graph(
   // Extrapolation
   (0px,    16px),
   // Fixed value of 16px until 320px
@@ -136,10 +135,10 @@ unit.graph(
 
 ### Steps
 
-Creation of steps is possible by creating sharp ascending line.
+Creation of steps is possible by creating sharp line.
 
 ```scss
-unit.graph(
+unit-graph(
   // Extrapolation
   (0px,      16px),
   // Fixed value of 16px until ~768px
@@ -167,13 +166,13 @@ which affects the precision of the generated expressions.
 
 ### Units
 
-`unit.graph()` accepts all absolute CSS units (cm, mm, in, px, pt, pc), 
+`unit-graph()` accepts all absolute CSS units (cm, mm, in, px, pt, pc), 
 although the output will always be in pixels.
 
 This is made possible by Sass's support of real-world unit calculations, as detailed in the
 [Sass documentation of numeric units](https://sass-lang.com/documentation/operators/numeric#units).
 
-### `@use "sass-unit-graph/unit"` can't find the file
+### `@use "sass-unit-graph"` can't find the file
 
 Configure Dart Sass [includePaths](https://github.com/sass/node-sass#includepaths)
 option to resolve to your `node_modules` folder.
